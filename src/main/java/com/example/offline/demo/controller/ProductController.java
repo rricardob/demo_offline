@@ -17,7 +17,7 @@ import com.example.offline.demo.service.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "http://localhost:3000") // Permitir CORS para el frontend
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:5173","http://localhost:4173"}) // Permitir CORS para el frontend
 public class ProductController {
     private final ProductService service;
 
