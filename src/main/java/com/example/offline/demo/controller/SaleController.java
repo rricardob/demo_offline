@@ -1,6 +1,7 @@
 package com.example.offline.demo.controller;
 
 import com.example.offline.demo.controller.request.CreateSaleRequest;
+import com.example.offline.demo.controller.response.GetAllSalesResponse;
 import com.example.offline.demo.controller.response.GetMaxIdResponse;
 import com.example.offline.demo.controller.response.GetSaleInfo;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.offline.demo.service.SaleService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/sales")
@@ -39,6 +42,11 @@ public class SaleController {
     @GetMapping("/max-id")
     public ResponseEntity<GetMaxIdResponse> maxId() {
         return ResponseEntity.ok(service.maxId());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<GetAllSalesResponse>> getAllSaleInfo() {
+        return ResponseEntity.ok(service.getAllSales());
     }
 
 }

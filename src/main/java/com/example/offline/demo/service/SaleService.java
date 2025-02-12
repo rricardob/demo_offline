@@ -1,6 +1,7 @@
 package com.example.offline.demo.service;
 
 import com.example.offline.demo.controller.request.CreateSaleRequest;
+import com.example.offline.demo.controller.response.GetAllSalesResponse;
 import com.example.offline.demo.controller.response.GetMaxIdResponse;
 import com.example.offline.demo.controller.response.GetSaleInfo;
 import com.example.offline.demo.entity.ClientEntity;
@@ -19,6 +20,7 @@ import com.example.offline.demo.repository.SaleRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -164,6 +166,27 @@ public class SaleService {
             }
         }
         return productsInfo;
+    }
+
+    public List<GetAllSalesResponse> getAllSales() {
+        List<SaleEntity> sales = this.saleRepository.findAll();
+        return sales.stream()
+                .map(s ->
+                        GetAllSalesResponse.builder()
+                                .id(s.getId())
+                                .saleDate(s.getSaleDate())
+                                .totalAmount(s.getTotalAmount())
+                                .serie("F00" + s.getId())
+                                /*.client(GetAllSalesResponse.ClientInfo
+                                        .builder()
+                                        .id(s.getClient().getId())
+                                        .document(s.getClient().getDocument())
+                                        .email(s.getClient().getEmail())
+                                        .firstName(s.getClient().getFirstName())
+                                        .lastName(s.getClient().getLastName())
+                                        .build())*/
+                                .build()
+                ).collect(Collectors.toList());
     }
 
 
