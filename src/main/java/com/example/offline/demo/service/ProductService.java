@@ -1,6 +1,7 @@
 package com.example.offline.demo.service;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,11 @@ public class ProductService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<ProductEntity> findByName(String name) {
+        if (name == null || name.isEmpty()) return List.of();
+        return this.repository.findAll()
+                .stream().filter(product -> product.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))).toList();
     }
 }
