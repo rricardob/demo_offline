@@ -3,11 +3,11 @@ spring:
     name: "bloggio-api"
   datasource:
     #url: ${URL_DB}
-    url: jdbc:postgresql://dpg-cuva6hi3esus73bna9f0-a.oregon-postgres.render.com/ferreteria_p9rp
+    url: jdbc:postgresql://dpg-d0sdulumcj7s73etvqdg-a.oregon-postgres.render.com/ferreteria_bd_jox5
     #username: ${USER_DB}
-    username: ferreteria_p9rp_user
+    username: ferreteria_bd_jox5_user
     #password: ${PASSWORD_DB}
-    password: 5gzRGBZUIUIw9fmpmHFkPLdfA5TrkIGp
+    password: ImQNqIrO50qZncqPPclLpHEMMSsdr8J2
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:
