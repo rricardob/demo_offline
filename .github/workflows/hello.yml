@@ -1,9 +1,9 @@
-name:
+#name:
 
-on: [push]
-jobs:
-  hello:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Hello World
-        run: echo "Hello World"
+#on: [push]
+#jobs:
+#  hello:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Hello World
+#        run: echo "Hello World"
