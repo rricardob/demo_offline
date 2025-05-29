@@ -33,9 +33,9 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
-      - name: Upload test coverage report (optional)
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-coverage-report
-          path: build/reports/jacoco/test/html/index.html
+#      - name: Upload test coverage report (optional)
+#        if: ${{ always() }}
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: test-coverage-report
+#          path: build/reports/jacoco/test/html/index.html
