@@ -16,6 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Clean up cache
+        run: |
+          rm -rf ~/.cache/actions/*
+          rm -rf ~/.local/share/actions/*
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -32,9 +37,9 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
-      - name: Upload test coverage report (optional)
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-coverage-report
-          path: build/reports/jacoco/test/html/index.html
+#      - name: Upload test coverage report (optional)
+#        if: ${{ always() }}
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: test-coverage-report
+#          path: build/reports/jacoco/test/html/index.html
