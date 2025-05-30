@@ -36,6 +36,7 @@ public class ProductService {
     public List<ProductEntity> findByName(String name) {
         if (name == null || name.isEmpty()) return List.of();
         return this.repository.findAll()
-                .stream().filter(product -> product.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))).toList();
+                .stream().filter(product -> product.getName()
+                        .toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))).toList();
     }
 }

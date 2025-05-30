@@ -56,7 +56,7 @@ public class SaleService {
         SaleEntity sale = new SaleEntity();
         sale.setClient(x.orElse(null)); // Obtener el cliente desde la BD
         sale.setSaleDate(LocalDate.now()); // Fecha actual
-        sale.setTotalAmount(calculateTotal(request.getProducts())); // Calcular el total (ver método abajo)
+        sale.setTotalAmount(calculateTotal(request.getProducts()));
 
         // 3. Guardar la venta (sin detalles aún)
         SaleEntity savedSale = saleRepository.save(sale);
@@ -68,7 +68,7 @@ public class SaleService {
             saleDetail.setSale(savedSale);
             saleDetail.setProduct(productEntity); // Obtener el producto
             saleDetail.setQuantity(product.getQuantity());
-            saleDetail.setUnitPrice(saleDetail.getProduct().getPrice()); // Asumiendo que Product tiene un precio
+            saleDetail.setUnitPrice(saleDetail.getProduct().getPrice());
 
             // Validar datos del detalle (¡también es crucial!)
             if (saleDetail.getProduct() == null) {
@@ -111,7 +111,9 @@ public class SaleService {
         if (product != null) {
             int newStock = product.getQuantity() - quantity;
             if (newStock < 0) {
-                throw new IllegalArgumentException("No hay suficiente stock para el producto " + product.getName());
+                throw new IllegalArgumentException(
+                        "No hay suficiente stock para el producto "
+                                + product.getName());
             }
             product.setQuantity(newStock);
             productRepository.save(product);
@@ -124,8 +126,10 @@ public class SaleService {
             return null; // O lanza una excepción si prefieres
         }
 
-        List<SaleDetailEntity> saleDetails = saleDetailRepository.findBySale_Id(sale.getId());
-        ClientEntity client = clientRepository.findByDocument(Long.parseLong(sale.getClient().getDocument().toString())).orElse(null);
+        List<SaleDetailEntity> saleDetails =
+                saleDetailRepository.findBySale_Id(sale.getId());
+        ClientEntity client = clientRepository.findByDocument(
+                Long.parseLong(sale.getClient().getDocument().toString())).orElse(null);
         if (client == null) {
             return null; // O lanza una excepción si prefieres
         }
@@ -150,16 +154,17 @@ public class SaleService {
                 .build();
     }
 
-    private List<GetSaleInfo.ProductsInfo> buildProductsInfo(List<SaleDetailEntity> saleDetails) {
+    private List<GetSaleInfo.ProductsInfo> buildProductsInfo(
+            List<SaleDetailEntity> saleDetails) {
         List<GetSaleInfo.ProductsInfo> productsInfo = new ArrayList<>();
         for (SaleDetailEntity saleDetail : saleDetails) {
-            ProductEntity product = saleDetail.getProduct(); // Asumiendo que SaleDetailEntity tiene una relación con ProductEntity
+            ProductEntity product = saleDetail.getProduct();
             if (product != null) {
                 GetSaleInfo.ProductsInfo productInfo = GetSaleInfo.ProductsInfo.builder()
                         .id(product.getId())
                         .name(product.getName())
                         .quantity(saleDetail.getQuantity())
-                        .price(product.getPrice()) // Asumiendo que ProductEntity tiene un campo price
+                        .price(product.getPrice())
                         .subTotal(product.getPrice() * saleDetail.getQuantity())
                         .build();
                 productsInfo.add(productInfo);

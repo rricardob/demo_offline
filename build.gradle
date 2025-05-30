@@ -42,7 +42,7 @@ tasks.named('test') {
 
 checkstyle {
 	toolVersion = '10.12.1' // o versión más reciente
-	configFile = file("demo/config/checkstyle/checkstyle.xml")
+	configFile = file("config/checkstyle/checkstyle.xml")
 	ignoreFailures = false
 	reportsDir = file("build/reports/checkstyle")
 }
