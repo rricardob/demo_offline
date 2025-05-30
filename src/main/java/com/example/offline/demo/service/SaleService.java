@@ -34,14 +34,6 @@ public class SaleService {
 
     @Transactional
     public void create(CreateSaleRequest request) {
-        /*ClientEntity clientEntity = new ClientEntity();
-        clientEntity.setId(request.getClientId());
-
-
-        SaleEntity saleEntity = new SaleEntity();
-        saleEntity.setClient(clientEntity);
-        saleEntity.setSaleDate(LocalDate.now());*/
-
         // 1. Validar datos del request
         var x = clientRepository.findByDocument(request.getClientId());
         if (request.getClientId() == null || x.isEmpty()) {
@@ -95,7 +87,7 @@ public class SaleService {
     }
 
     // Método para calcular el total
-    private double calculateTotal(List<CreateSaleRequest.Product> products) {
+    public double calculateTotal(List<CreateSaleRequest.Product> products) {
         double total = 0;
         for (CreateSaleRequest.Product product : products) {
             ProductEntity p = productRepository.findById(product.getId()).orElse(null);
@@ -107,7 +99,7 @@ public class SaleService {
     }
 
     // Método para actualizar el stock del producto
-    private void updateProductStock(ProductEntity product, int quantity) {
+    public void updateProductStock(ProductEntity product, int quantity) {
         if (product != null) {
             int newStock = product.getQuantity() - quantity;
             if (newStock < 0) {
